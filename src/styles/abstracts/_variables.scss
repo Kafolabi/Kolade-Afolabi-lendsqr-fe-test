@@ -1,41 +1,8 @@
-// // Colors
-// $color-primary: #39cdcc;
-// $color-primary-dark: #31baba;
-// $color-secondary: #213f7d;
-// $color-text-dark: #213f7d;
-// $color-text-light: #545f7d;
-// $color-bg: #f5f6fa;
-// $color-white: #ffffff;
-// $color-border: #e0e0e0;
-
-// // Typography
-// $font-family-base: 'Inter', sans-serif;
-
-// // Border Radius
-// $radius-sm: 0.25rem;   // 4px
-// $radius-md: 0.5rem;    // 8px
-
-// // Spacing Scale
-// $spacing-xs: 0.25rem;   // 4px
-// $spacing-sm: 0.5rem;    // 8px
-// $spacing-md: 1rem;      // 16px
-// $spacing-lg: 1.5rem;    // 24px
-// $spacing-xl: 2rem;      // 32px
-// $spacing-xxl: 3rem;     // 48px
-
-// // Font Sizes
-// $font-size-xs: 0.75rem;  // 12px
-// $font-size-sm: 0.875rem; // 14px
-// $font-size-md: 1rem;     // 16px
-// $font-size-lg: 1.25rem;  // 20px
-// $font-size-xl: 1.5rem;   // 24px
-// $font-size-xxl: 2rem;    // 32px
-
-
-
 // ==========================
 // Global Design Tokens
 // ==========================
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
   // === Colors ===
@@ -45,7 +12,7 @@
   --color-accent: #e4033b;
 
   // Neutral Grays
-  --color-neutral-50: #f9fafb;
+  --color-neutral-50: #fcfdfd;
   --color-neutral-100: #f3f4f6;
   --color-neutral-200: #e5e7eb;
   --color-neutral-300: #d1d5db;
@@ -62,8 +29,8 @@
   --color-error: #e4033b;
 
   // === Typography ===
-  --font-family-sans: 'Work Sans', sans-serif;
-  --font-family-mono: 'Fira Code', monospace;
+  --font-family-sans: "Inter", system-ui, Arial, sans-serif;
+  // --font-family-mono: 'Fira Code', monospace;
 
   --font-size-xs: 0.75rem;   // 12px
   --font-size-sm: 0.875rem;  // 14px
@@ -78,9 +45,11 @@
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
-  --font-weight-bold: 700;
+  --font-weight-bold: 800;
+  --font-weight-thin: 300;
 
   // === Spacing scale (4px baseline) ===
+  --space-0: 0.0625rem;
   --space-1: 0.25rem;   // 4px
   --space-2: 0.5rem;    // 8px
   --space-3: 0.75rem;   // 12px
@@ -92,6 +61,10 @@
   --space-12: 3rem;     // 48px
   --space-16: 4rem;     // 64px
   --space-20: 5rem;     // 80px
+  --space-24: 6rem;     // 96px
+  --space-28: 7rem;
+  --space-32: 8rem;     // 128px
+  --space-40: 10rem;    // 160px
 
   // === Border radius ===
   --radius-xs: 0.125rem; // 2px
@@ -105,7 +78,7 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 32px 64px rgba(1, 0.6, 0.5, 0.12);
 
   // === Z-index layers ===
   --z-dropdown: 1000;

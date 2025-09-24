@@ -1,23 +1,23 @@
-@import './abstracts/variables';
-@import './abstracts/mixins';
-@import './abstracts/functions';
+@use './abstracts/variables';
+@use './abstracts/mixins';
+@use './abstracts/functions';
 
-@import './base/reset';
-@import './base/typography';
-@import './base/globals';
+@use './base/reset';
+@use './base/typography';
+@use './base/globals';
 
-@import './components/button';
-@import './components/input';
-@import "./components/modal";
-@import './components/navbar';
-@import './components/sidebar';
-@import "./components/table";
-@import "./components/pagination";
+@use './components/button';
+@use './components/input';
+@use "./components/modal";
+@use './components/navbar';
+@use './components/sidebar';
+@use "./components/table";
+@use "./components/pagination";
 
-@import './features/loginForm';
-@import './features/dashboard';
-@import './features/users';
+@use './features/loginForm';
+@use './features/dashboard';
+@use './features/users';
 
-@import './pages/loginPage';
-@import './pages/dashboardPage';
-@import './pages/usersPage';
+@use './pages/loginPage';
+@use './pages/dashboardPage';
+@use './pages/usersPage';

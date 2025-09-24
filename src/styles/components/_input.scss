@@ -1,0 +1,72 @@
+.form-group {
+  margin-top: var(--space-4);
+  position: relative;
+  width: 100%;
+
+  input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-md);
+    border: 2px solid var(--color-neutral-200);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &::placeholder {
+      color: var(--color-neutral-400);
+      font-family: var(--font-family-sans);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-thin);
+    }
+
+    &:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(57, 205, 204, 0.2);
+    }
+    /* ✅ Remove browser's default eye/clear icons */
+    &[type="password"]::-ms-reveal,
+    &[type="password"]::-ms-clear {
+      display: none;
+    }
+
+    &[type="password"]::-webkit-credentials-auto-fill-button,
+    &[type="password"]::-webkit-textfield-decoration-container,
+    &[type="password"]::-webkit-clear-button,
+    &[type="password"]::-webkit-reveal {
+      display: none;
+    }
+  }
+
+  // Right-side text or toggle button
+  .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: var(--space-3); // ✅ consistent spacing from the right
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: var(--font-family-sans);
+    letter-spacing: 0;
+    padding: 0;
+
+    &:focus {
+      outline: none; // remove default browser outline
+    }
+  }
+
+  // Right-side icons (if you add support later)
+  .input-icon {
+    position: absolute;
+    top: 50%;
+    right: var(--space-3);
+    transform: translateY(-50%);
+    pointer-events: none; // prevents icon from blocking clicks
+    font-size: var(--font-size-md);
+    color: var(--color-neutral-400);
+  }
+}

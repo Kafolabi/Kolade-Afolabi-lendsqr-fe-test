@@ -1,0 +1,119 @@
+// =========================
+// Login Form
+// =========================
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  &__title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin-bottom: var(--space-2);
+  }
+
+  &__subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-neutral-500);
+    margin-bottom: var(--space-6);
+    font-weight: var(--font-weight-thin);
+  }
+}
+
+// =========================
+// Form Fields
+// =========================
+.form-group {
+  margin-top: var(--space-4);
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-md);
+    border: 2px solid var(--color-neutral-200);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &::placeholder {
+      color: var(--color-neutral-400);
+      font-family: var(--font-family-sans);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-thin);
+    }
+
+    &:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(57, 205, 204, 0.2);
+    }
+  }
+
+  // Toggle Password Button
+  .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 1%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: var(--font-family-sans);
+    letter-spacing: var(--space-0);
+  }
+}
+
+// =========================
+// Actions (Forgot + Button)
+// =========================
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  width: 100%;
+
+  .forgot-password {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    font-family: var(--font-family-sans);
+    text-decoration: none;
+    align-self: flex-start;
+    margin-bottom: var(--space-2);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .btn {
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-family-sans);
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease, transform 0.1s ease;
+
+    &-primary {
+      background-color: var(--color-primary);
+      color: white;
+
+      &:hover {
+        background-color: var(--color-primary-dark);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
