@@ -1,0 +1,61 @@
+// ==========================
+// Mixins
+// ==========================
+
+// Media query shortcuts
+@mixin respond($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: 640px) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (min-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @media (min-width: 1280px) {
+      @content;
+    }
+  } @else if $breakpoint == 2xl {
+    @media (min-width: 1536px) {
+      @content;
+    }
+  }
+}
+
+// Flex center
+@mixin flex-center($direction: row, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+  gap: $gap;
+}
+
+// Grid center
+@mixin grid-center {
+  display: grid;
+  place-items: center;
+}
+
+// Truncate long text
+@mixin truncate($width: 100%) {
+  max-width: $width;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Button reset
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
