@@ -12,7 +12,7 @@ type ButtonProps = {
   className?: string;
 };
 
-export default function Button({
+function Button({
   children,
   onClick,
   type = "button",
@@ -41,3 +41,5 @@ export default function Button({
     </button>
   );
 }
+
+export default Button;

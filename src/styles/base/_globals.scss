@@ -4,10 +4,10 @@ body {
   background: #fff;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 * {
   font-family: var(--font-family-sans);
   box-sizing: border-box;
-
 }

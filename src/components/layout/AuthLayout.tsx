@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import "../../styles/layouts/_authLayout.scss";
+import Logo from "../ui/Logo";
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -8,14 +9,10 @@ interface AuthLayoutProps {
 function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <div className="auth-layout">
+
       {/* Left side - illustration/branding */}
       <div className="auth-layout__left">
-        <img
-          src="/logo.png"
-          alt="Logo"
-          width={150}
-          className="auth-layout__logo"
-        />
+        <Logo className="auth-layout__logo" />
         <img
           src="/login-image2.png"
           alt="Authentication Illustration"
