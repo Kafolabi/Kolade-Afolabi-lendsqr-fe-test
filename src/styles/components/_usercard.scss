@@ -1,0 +1,36 @@
+.user-card {
+  background-color: #fff;
+  padding: var(--space-6);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--space-3);
+
+  box-shadow: var(--shadow-lg);
+
+  &__icon {
+    font-size: var(--font-size-3xl);
+    color: var(--color-primary);
+    text-align: left;
+  }
+
+  &__content {
+    .user-card__label {
+      font-size: var(--font-size-sm);
+      color: var(--color-sidelink);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.01rem;
+      margin: 0;
+    }
+
+    .user-card__value {
+      padding-top: var(--space-3);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-secondary);
+      margin: 0;
+    }
+  }
+}

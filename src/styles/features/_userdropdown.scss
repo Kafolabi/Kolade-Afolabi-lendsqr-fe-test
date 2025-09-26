@@ -1,0 +1,44 @@
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;                // below the button
+  right: 0;                 // start at button’s right edge
+  background: #fff;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  min-width: 180px;
+  padding: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10000;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    background-color: white;
+  }
+
+  button {
+    all: unset; // strip browser defaults
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    color: var(--color-neutral-700);
+    cursor: pointer;
+
+    svg {
+      font-size: 16px;
+      color: var(--color-neutral-600);
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background: var(--color-neutral-100);
+    }
+  }
+}

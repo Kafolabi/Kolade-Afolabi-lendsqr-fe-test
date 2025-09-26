@@ -2,7 +2,7 @@
 // import LoginPage from "./pages/LoginPage";
 import Sidebar from "./components/layout/Sidebar";
 import Navbar from "./components/layout/Navbar";
-import DashboardLayout from "./components/layout/DashboardLayout"
+import DashboardLayout from "./pages/DashboardPage";
 
 function App() {
   return (

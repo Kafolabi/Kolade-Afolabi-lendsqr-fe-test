@@ -7,9 +7,7 @@ function Logo({ className }: logoProps) {
     <div>
       <img
         src="/logo.png"
-        alt="Logo"
-        // width={150}
-        
+        alt="Logo"    
         className={className}
       />
     </div>

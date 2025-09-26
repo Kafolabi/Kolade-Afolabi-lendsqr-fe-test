@@ -1,0 +1,59 @@
+.users-page {
+  // padding: 2rem;
+
+  .user-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: var(--space-2) 0;
+    margin-top: 2rem;
+    background: #fff;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+
+    th {
+      text-align: left;
+      padding: var(--space-6);
+      font-size: var(--font-size-xs);
+      color: var(--color-neutral-600);
+    }
+  }
+}
+
+// .users-page {
+//   .users-table {
+//     width: 100%;
+//     border-collapse: collapse;
+//     background: #fff;
+//     border-radius: var(--radius-md);
+//     overflow: hidden; // keeps rounded corners clean
+
+//     th,
+//     td {
+//       padding: var(--space-4) var(--space-6);
+//       text-align: left;
+//     }
+
+//     thead th {
+//       font-weight: var(--font-weight-medium);
+//       font-size: var(--font-size-sm);
+//       color: var(--color-neutral-600);
+//       text-transform: uppercase;
+//     }
+//   }
+
+//   // ✅ add spacing around the table so it doesn’t hug container edges
+//   .users-table-wrapper {
+//     margin-top: var(--space-8);
+//     padding: var(--space-6);
+//     background: var(--color-neutral-50);
+//     border-radius: var(--radius-md);
+//   }
+// }
+

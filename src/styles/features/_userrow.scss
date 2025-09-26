@@ -1,0 +1,139 @@
+.user-row {
+  /* do NOT set position: relative on <tr> in all browsers — use the cell anchor below */
+  td {
+    padding: var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-neutral-800);
+    vertical-align: middle;
+    border-bottom: none; /* we draw separators ourselves if needed */
+  }
+
+  .status {
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+
+    &--active {
+      background: #e6f8f5;
+      color: #1a7f6f;
+    }
+    &--inactive {
+      background: #f2f2f2;
+      color: #666;
+    }
+    &--pending {
+      background: #fff7e6;
+      color: #ff9900;
+    }
+    &--blacklisted {
+      background: #ffe6e6;
+      color: #cc0000;
+    }
+  }
+}
+
+/* Anchor cell for the action button + dropdown */
+.row-action-cell {
+  position: relative; /* crucial: dropdown positioned relative to this */
+  width: 1%; /* keeps cell tight to content */
+  white-space: nowrap;
+  vertical-align: top;
+  padding: var(--space-3) var(--space-4);
+
+  .row-action {
+    all: unset; /* remove default button styles */
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    font-size: 1.25rem;
+    color: var(--color-neutral-600);
+
+    &:hover {
+      background: var(--color-neutral-100);
+    }
+
+    &:focus {
+      outline: 2px solid rgba(0,0,0,0.08);
+      outline-offset: 2px;
+    }
+  }
+}
+
+/* Dropdown styles (scoped and specific) */
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 6px); /* small gap */
+  right: 0;               /* align to right edge of the action cell */
+  z-index: 9999;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  padding: 0.25rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
+  pointer-events: none;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* buttons inside dropdown */
+  button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--color-neutral-800);
+    border-radius: var(--radius-sm);
+
+    svg {
+      flex-shrink: 0;
+      font-size: 16px;
+      color: var(--color-neutral-600);
+    }
+
+    &:hover {
+      background: var(--color-neutral-100);
+    }
+
+    &:active {
+      background: var(--color-neutral-200);
+    }
+  }
+}
+
+/* Optional: inset row separator (single line per row) */
+.users-table { /* scope only if your table has .users-table class */
+  tr {
+    position: relative;
+  }
+
+  tr:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: 0;
+    height: 1px;
+    background: var(--color-neutral-200);
+    pointer-events: none;
+  }
+}
