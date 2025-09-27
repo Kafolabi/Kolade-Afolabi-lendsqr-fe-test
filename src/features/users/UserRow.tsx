@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "../../styles/features/_userrow.scss";
 import UserDropdown from "./UserDropDown";
+import { formatDate } from "../../utils/formatters";
 
 type UserRowProps = {
   id?: string;
@@ -49,7 +50,7 @@ export default function UserRow({
       <td>{username}</td>
       <td>{email}</td>
       <td>{phone}</td>
-      <td>{date}</td>
+      <td>{formatDate(date)}</td>
       <td>
         <span className={`status status--${status.toLowerCase()}`}>
           {status}

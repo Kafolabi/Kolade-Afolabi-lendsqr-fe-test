@@ -19,9 +19,12 @@
 
     th {
       text-align: left;
-      padding: var(--space-6);
+      padding-block: var(--space-6);
+      padding-inline: var(--space-3);
       font-size: var(--font-size-xs);
       color: var(--color-neutral-600);
+      vertical-align: middle;
+      white-space: nowrap;
     }
   }
 }
@@ -56,4 +59,3 @@
 //     border-radius: var(--radius-md);
 //   }
 // }
-

@@ -1,169 +1,202 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import UserCard from "../components/ui/UserCard";
 import UserRow from "../features/users/UserRow";
-// import UserFilter from "../features/users/UserFilters";
-
 import Pagination from "../components/ui/Pagination";
+import FullSpinner from "../components/ui/FullSpinner";
+import UserFilter from "../features/users/UserFilters";
+import { useFilter } from "../hooks/useFilter";
 import "../styles/pages/_usersPage.scss";
+import FilterButton from "../components/ui/FilterButton";
+
+type User = {
+  id: string | number;
+  fullName: string;
+  organization: string;
+  email: string;
+  phone: string;
+  dateJoined: string;
+  status: string;
+  loanRepayment?: number | string;
+  savings?: number | string;
+};
 
 export default function UsersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [showFilter, setShowFilter] = useState(false);
+  const filterWrapperRef = useRef<HTMLDivElement>(null);
+  const [openFilterColumn, setOpenFilterColumn] = useState<string | null>(null);
 
-  const users = [
-    {
-      organization: "Lendsqr",
-      username: "Grace Effiom",
-      email: "grace@lendstar.com",
-      phone: "07060780922",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Active" as const,
-    },
-    {
-      organization: "Irorun",
-      username: "Debby Ogana",
-      email: "debby@irorun.com",
-      phone: "08160780928",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Pending" as const,
-    },
-    {
-      organization: "Irorun",
-      username: "Debby Ogana",
-      email: "debby@irorun.com",
-      phone: "08160780928",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Inactive" as const,
-    },
-    {
-      organization: "Lendsqr",
-      username: "Grace Effiom",
-      email: "grace@lendstar.com",
-      phone: "07060780922",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Blacklisted" as const,
-    },
-    {
-      organization: "Lendsqr",
-      username: "Grace Effiom",
-      email: "grace@lendstar.com",
-      phone: "07060780922",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Active" as const,
-    },
-    {
-      organization: "Irorun",
-      username: "Debby Ogana",
-      email: "debby@irorun.com",
-      phone: "08160780928",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Pending" as const,
-    },
-    {
-      organization: "Irorun",
-      username: "Debby Ogana",
-      email: "debby@irorun.com",
-      phone: "08160780928",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Inactive" as const,
-    },
-    {
-      organization: "Lendsqr",
-      username: "Grace Effiom",
-      email: "grace@lendstar.com",
-      phone: "07060780922",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Blacklisted" as const,
-    },
-    {
-      organization: "Lendsqr",
-      username: "Grace Effiom",
-      email: "grace@lendstar.com",
-      phone: "07060780922",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Active" as const,
-    },
-    {
-      organization: "Irorun",
-      username: "Debby Ogana",
-      email: "debby@irorun.com",
-      phone: "08160780928",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Pending" as const,
-    },
-    {
-      organization: "Irorun",
-      username: "Debby Ogana",
-      email: "debby@irorun.com",
-      phone: "08160780928",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Inactive" as const,
-    },
-    {
-      organization: "Lendsqr",
-      username: "Grace Effiom",
-      email: "grace@lendstar.com",
-      phone: "07060780922",
-      date: "Apr 30, 2020 10:00 AM",
-      status: "Blacklisted" as const,
-    },
+  const { data: users = [], isLoading, setFilters } = useFilter();
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        filterWrapperRef.current &&
+        !filterWrapperRef.current.contains(event.target as Node)
+      ) {
+        setShowFilter(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const paginatedUsers = useMemo(() => {
+    const start = (currentPage - 1) * rowsPerPage;
+    return users.slice(start, start + rowsPerPage);
+  }, [users, currentPage, rowsPerPage]);
+
+  const totalPages = Math.ceil(users.length / rowsPerPage) || 1;
+  const totalUsers = users.length;
+
+  const noOfActiveUsers = users.filter((u) => u.status === "Active").length;
+  const usersWithLoans = users.filter(
+    (u) => Number(u.loanRepayment) > 0
+  ).length;
+  const usersWithSavings = users.filter((u) => Number(u.savings) > 0).length;
+
+  if (isLoading) return <FullSpinner />;
+
+  const tableRows = [
+    "ORGANIZATION",
+    "USERNAME",
+    "EMAIL",
+    "PHONE NUMBER",
+    "DATE JOINED",
+    "STATUS",
   ];
-
-  // Pagination logic
-  const totalItems = users.length;
-  const totalPages = Math.ceil(totalItems / rowsPerPage);
-
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
-  const currentUsers = users.slice(startIndex, endIndex);
 
   return (
     <div className="users-page">
-      {/* Top summary cards */}
+      {/* Summary Cards */}
       <div className="user-cards">
-        <UserCard icon={"👥"} label="USERS" value="2,453" />
-        <UserCard icon={"✅"} label="ACTIVE USERS" value="2,453" />
-        <UserCard icon={"💰"} label="USERS WITH LOANS" value="12,453" />
-        <UserCard icon={"🏦"} label="USERS WITH SAVINGS" value="102,453" />
-      </div>
-
-      {/* Filters (optional) */}
-      {/* <UserFilter onFilter={(f) => console.log(f)} onReset={() => {}} /> */}
-
-      {/* Table */}
-      <table className="users-table">
-        <thead>
-          <tr>
-            <th>ORGANIZATION</th>
-            <th>USERNAME</th>
-            <th>EMAIL</th>
-            <th>PHONE NUMBER</th>
-            <th>DATE JOINED</th>
-            <th>STATUS</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentUsers.map((u, i) => (
-            <UserRow key={i} {...u} />
-          ))}
-        </tbody>
-      </table>
-
-      {/* Pagination */}
-      <div className="user-page">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={(num) => {
-            setRowsPerPage(num);
-            setCurrentPage(1); // reset to first page when rowsPerPage changes
-          }}
-          totalItems={totalItems}
+        <UserCard icon="👥" label="USERS" value={totalUsers.toLocaleString()} />
+        <UserCard
+          icon="✅"
+          label="ACTIVE USERS"
+          value={noOfActiveUsers.toLocaleString()}
+        />
+        <UserCard
+          icon="💰"
+          label="USERS WITH LOANS"
+          value={usersWithLoans.toLocaleString()}
+        />
+        <UserCard
+          icon="🏦"
+          label="USERS WITH SAVINGS"
+          value={usersWithSavings.toLocaleString()}
         />
       </div>
+
+      {/* Table */}
+      <div
+        className="users-table-wrapper"
+        style={{ position: "relative" }}
+        ref={filterWrapperRef}
+      >
+        <table className="users-table">
+          <thead>
+            <tr>
+              {tableRows.map((row) => (
+                <th key={row} style={{ position: "relative" }}>
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                    }}
+                    onClick={() =>
+                      setOpenFilterColumn((prev) => (prev === row ? null : row))
+                    }
+                  >
+                    {row} <FilterButton />
+                  </span>
+
+                  {openFilterColumn === row && (
+                    <div className="user-filter open">
+                      <UserFilter
+                        onFilter={(filters) => {
+                          setFilters(filters);
+                          setCurrentPage(1);
+                          setOpenFilterColumn(null);
+                        }}
+                        onReset={() => {
+                          setFilters({});
+                          setCurrentPage(1);
+                          setOpenFilterColumn(null);
+                        }}
+                      />
+                    </div>
+                  )}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedUsers.length === 0 ? (
+              <tr>
+                <td colSpan={7} style={{ textAlign: "center" }}>
+                  No users found
+                </td>
+              </tr>
+            ) : (
+              paginatedUsers.map((u) => (
+                <UserRow
+                  key={u.id}
+                  id={String(u.id)}
+                  organization={u.organization}
+                  username={u.fullName}
+                  email={u.email}
+                  phone={u.phone}
+                  date={u.dateJoined}
+                  status={
+                    ["Active", "Inactive", "Pending", "Blacklisted"].includes(
+                      u.status
+                    )
+                      ? (u.status as
+                          | "Active"
+                          | "Inactive"
+                          | "Pending"
+                          | "Blacklisted")
+                      : "Inactive"
+                  }
+                />
+              ))
+            )}
+          </tbody>
+        </table>
+
+        {/* UserFilter dropdown */}
+        <div className={`user-filter ${showFilter ? "open" : ""}`}>
+          <UserFilter
+            onFilter={(filters) => {
+              setFilters(filters);
+              setCurrentPage(1);
+              setShowFilter(false);
+            }}
+            onReset={() => {
+              setFilters({});
+              setCurrentPage(1);
+              setShowFilter(false);
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={(num) => {
+          setRowsPerPage(num);
+          setCurrentPage(1);
+        }}
+        totalItems={totalUsers}
+      />
     </div>
   );
 }

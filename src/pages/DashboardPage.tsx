@@ -3,8 +3,11 @@ import Navbar from "../components/layout/Navbar";
 import Sidebar from "../components/layout/Sidebar";
 import UserPage from "./UserPage";
 import "../styles/pages/_dashboardPage.scss";
+import { useAuth } from "../hooks/useAuth";
 
 function DashboardPage() {
+    // const { isAuthenticated } = useAuth();
+
   return (
     <div className="layout">
       {/* Top Navbar */}
@@ -24,3 +27,5 @@ function DashboardPage() {
 }
 
 export default DashboardPage;
+
+
