@@ -10,10 +10,10 @@
 
   .top-header {
     .back-button {
-      display: inline-flex; // horizontal alignment
-      align-items: center; // vertically center arrow and text
-      gap: 0.4rem; // space between arrow and text
-      padding: 0.4rem 0; // adjust vertical spacing
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0;
       border: none;
       background: none;
       cursor: pointer;
@@ -32,7 +32,6 @@
     }
   }
 
-  // Header
   .user-header {
     display: flex;
     align-items: center;
@@ -88,7 +87,7 @@
     display: flex;
     align-items: center;
     background: #fff;
-    padding: var(--space-4) var(--space-6); // top/bottom smaller, left/right enough
+    padding: var(--space-4) var(--space-6);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
     margin-bottom: var(--space-6);
@@ -134,10 +133,8 @@
     }
   }
 
-  // Tabs
   .tabs {
     display: flex;
-    // gap: var(--space-4);
     justify-content: space-between;
     border-bottom: 1px solid var(--color-neutral-200);
     margin-bottom: var(--space-6);
@@ -163,7 +160,6 @@
     }
   }
 
-  // General Details Sections
   .general-details {
     background: #fff;
     border-radius: var(--radius-md);
@@ -171,10 +167,10 @@
     padding: var(--space-6);
 
     hr {
-      border: none; // remove default border
-      height: 0.7px; // thin line
-      background-color: var(--color-neutral-200); // faint gray (Tailwind gray-300 equivalent)
-      margin: var(--space-6) 0; // vertical spacing
+      border: none;
+      height: 0.7px;
+      background-color: var(--color-neutral-200);
+      margin: var(--space-6) 0;
     }
 
     section {
@@ -216,4 +212,122 @@
       }
     }
   }
+
+  // Responsive styles
+  @media (max-width: 1200px) {
+    .profile-card {
+      flex-wrap: wrap;
+      padding: var(--space-4) var(--space-4);
+      > div:not(:last-child) {
+        padding-right: var(--space-4);
+        margin-right: var(--space-2);
+      }
+    }
+    .general-details {
+      padding: var(--space-4);
+    }
+  }
+
+  @media (max-width: 900px) {
+    padding: var(--space-4);
+
+    .user-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+      h2 {
+        font-size: var(--font-size-xl);
+      }
+      .actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    .profile-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+      .avatar {
+        margin-right: 0;
+        margin-bottom: var(--space-2);
+        padding-left: 0;
+      }
+      > div:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid var(--color-neutral-300);
+        padding-right: 0;
+        margin-right: 0;
+        padding-bottom: var(--space-4);
+        margin-bottom: var(--space-2);
+      }
+    }
+
+    .tabs {
+      flex-wrap: wrap;
+      button {
+        font-size: var(--font-size-sm);
+        padding: var(--space-2) var(--space-3);
+      }
+    }
+
+    .general-details {
+      padding: var(--space-3);
+      section {
+        .info-grid {
+          gap: var(--space-3);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: var(--space-2);
+
+    .user-header {
+      margin-bottom: var(--space-3);
+      h2 {
+        font-size: var(--font-size-lg);
+      }
+    }
+
+    .profile-card {
+      padding: var(--space-2);
+      box-shadow: var(--shadow-xs);
+      .avatar {
+        width: 48px;
+        height: 48px;
+        font-size: calc(48px / 2);
+      }
+      h3 {
+        font-size: var(--font-size-md);
+      }
+      p {
+        font-size: var(--font-size-xs);
+      }
+    }
+
+    .tabs {
+      margin-bottom: var(--space-3);
+      button {
+        font-size: var(--font-size-xs);
+        padding: var(--space-1) var(--space-2);
+      }
+    }
+
+    .general-details {
+      padding: var(--space-2);
+      section {
+        margin-bottom: var(--space-4);
+        h4 {
+          font-size: var(--font-size-sm);
+        }
+        .info-grid {
+          grid-template-columns: 1fr;
+          gap: var(--space-2);
+        }
+      }
+    }
+  }
 }
+

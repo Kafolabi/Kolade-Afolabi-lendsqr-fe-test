@@ -8,10 +8,8 @@
 @use './components/input';
 @use './components/navbar';
 @use './components/sidebar';
-@use "./components/table";
 @use "./components/pagination";
 
-@use './features/users';
 
 @use './pages/loginPage';
 @use './pages/dashboardPage';

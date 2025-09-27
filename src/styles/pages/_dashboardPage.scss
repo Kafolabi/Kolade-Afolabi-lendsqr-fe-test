@@ -1,3 +1,35 @@
+// .layout {
+//   display: flex;
+//   flex-direction: column;
+//   height: 100vh;
+//   font-family: var(--font-family-sans2) !important;
+
+//   // body under navbar
+//   &__body {
+//     display: flex;
+//     flex: 1;
+//   }
+//   .sidebar {
+//     width: 16rem;
+//     flex-shrink: 0;
+//     background: #fff;
+//     z-index: 2;
+//     box-shadow: var(--shadow-lg);
+//   }
+
+//   &__content {
+//     flex: 1;
+//     background: var(--color-neutral-50);
+//     padding: var(--space-8);
+//     overflow-y: auto;
+//     background-color: var(--color-dashboard-bg);
+
+//     // position: relative;
+//     z-index: 1; // 👈 ensures it doesn’t overlap the shadow
+//   }
+// }
+
+
 .layout {
   display: flex;
   flex-direction: column;
@@ -15,6 +47,30 @@
     background: #fff;
     z-index: 2;
     box-shadow: var(--shadow-lg);
+    transition: width 0.3s;
+
+    @media (max-width: 1024px) {
+      width: 12rem;
+    }
+    @media (max-width: 768px) {
+      width: 4rem;
+    }
+    @media (max-width: 600px) {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 70vw;
+      max-width: 18rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s;
+      box-shadow: var(--shadow-lg);
+      z-index: 100;
+      // Add a class like .sidebar--open to show sidebar on mobile
+      &.sidebar--open {
+        transform: translateX(0);
+      }
+    }
   }
 
   &__content {
@@ -23,8 +79,28 @@
     padding: var(--space-8);
     overflow-y: auto;
     background-color: var(--color-dashboard-bg);
-
-    // position: relative;
     z-index: 1; // 👈 ensures it doesn’t overlap the shadow
+
+    @media (max-width: 1024px) {
+      padding: var(--space-4);
+    }
+    @media (max-width: 768px) {
+      padding: var(--space-2);
+    }
+    @media (max-width: 600px) {
+      padding: var(--space-1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__body {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      height: 3.5rem;
+      position: relative;
+      box-shadow: none;
+    }
   }
 }
