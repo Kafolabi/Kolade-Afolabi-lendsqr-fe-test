@@ -1,11 +1,9 @@
 import axiosInstance from "./axiosInstance";
-import { USER_KEY_PREFIX } from "../utils/constants";
 
 export const getAllUsers = async () => {
   const response = await axiosInstance.get("/users");
   return response.data; // array of 500 users
 };
-
 
 export const getUserById = async (id: string): Promise<User> => {
   const response = await axiosInstance.get<User>(`/users/${id}`);
@@ -17,7 +15,7 @@ export interface UserFilters {
   username?: string; // frontend input mapped to fullName
   email?: string;
   phone?: string;
-  date?: string;     // input from type="date", e.g., "2023-12-09"
+  date?: string; // input from type="date", e.g., "2023-12-09"
   status?: string;
 }
 
@@ -34,7 +32,9 @@ export interface User {
   savings?: number | string;
 }
 
-export const getFilteredUsers = async (filters: UserFilters): Promise<User[]> => {
+export const getFilteredUsers = async (
+  filters: UserFilters
+): Promise<User[]> => {
   const { date, username, ...restFilters } = filters;
 
   // Map frontend filter names to backend JSON keys
@@ -59,3 +59,36 @@ export const getFilteredUsers = async (filters: UserFilters): Promise<User[]> =>
 
   return users;
 };
+
+export const activateUser = async (id: string | number): Promise<User> => {
+  const response = await axiosInstance.patch<User>(`/users/${id}`, {
+    status: "Active",
+  });
+  return response.data;
+};
+
+export const blacklistUser = async (id: string | number): Promise<User> => {
+  const response = await axiosInstance.patch<User>(`/users/${id}`, {
+    status: "Blacklisted",
+  });
+  return response.data;
+};
+
+
+
+// export const activateUser = async (id: string | number): Promise<User> => {
+//   const response = await axiosInstance.patch<User>(`/users/${id}`, {
+//     status: "active",
+//   });
+//   return response.data;
+// };
+
+// /**
+//  * Blacklist a user (set status to "blacklist")
+//  */
+// export const blacklistUser = async (id: string | number): Promise<User> => {
+//   const response = await axiosInstance.patch<User>(`/users/${id}`, {
+//     status: "blacklist",
+//   });
+//   return response.data;
+// };

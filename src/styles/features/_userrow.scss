@@ -9,15 +9,15 @@
   }
 
   .status {
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.75rem;
-    font-weight: 600;
+    padding: 0.5rem 0.7rem;
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-thin);
     display: inline-block;
 
     &--active {
       background: #e6f8f5;
-      color: #1a7f6f;
+      color: var(--color-success);
     }
     &--inactive {
       background: #f2f2f2;

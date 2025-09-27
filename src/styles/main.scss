@@ -2,20 +2,15 @@
 @use './abstracts/mixins';
 @use './abstracts/functions';
 
-@use './base/reset';
-@use './base/typography';
 @use './base/globals';
 
 @use './components/button';
 @use './components/input';
-@use "./components/modal";
 @use './components/navbar';
 @use './components/sidebar';
 @use "./components/table";
 @use "./components/pagination";
 
-// @use './features/loginForm';
-// @use './features/dashboard';
 @use './features/users';
 
 @use './pages/loginPage';

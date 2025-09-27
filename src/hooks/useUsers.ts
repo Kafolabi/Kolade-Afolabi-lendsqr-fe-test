@@ -1,12 +1,10 @@
-
 import { useQuery } from "@tanstack/react-query";
-import { getAllUsers, getUserById } from "../services/apiUsers";
+import { getAllUsers } from "../services/apiUsers";
 
-// Fetch all users at once
+// Fetch all users at once with error handling
 export const useAllUsers = () => {
   return useQuery({
     queryKey: ["allUsers"],
-    queryFn: getAllUsers
+    queryFn: getAllUsers,
   });
 };
-

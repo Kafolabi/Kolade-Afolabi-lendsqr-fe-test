@@ -4,41 +4,86 @@ import UserRow from "../features/users/UserRow";
 import Pagination from "../components/ui/Pagination";
 import FullSpinner from "../components/ui/FullSpinner";
 import UserFilter from "../features/users/UserFilters";
-import { useFilter } from "../hooks/useFilter";
-import { useReset } from "../hooks/useReset";
-import "../styles/pages/_usersPage.scss";
 import FilterButton from "../components/ui/FilterButton";
-
-type User = {
-  id: string | number;
-  fullName: string;
-  organization: string;
-  email: string;
-  phone: string;
-  dateJoined: string;
-  status: string;
-  loanRepayment?: number | string;
-  savings?: number | string;
-};
+import { useAllUsers } from "../hooks/useUsers"; // the main hook
+import "../styles/pages/_usersPage.scss";
+import { normalizeStatus } from "../utils/helpers";
+import toast from "react-hot-toast";
 
 export default function UsersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [openFilterColumn, setOpenFilterColumn] = useState<string | null>(null);
+  const [appliedFilters, setAppliedFilters] = useState<Record<string, string>>(
+    {}
+  );
 
-  const { data: users = [], isLoading, setFilters } = useFilter();
-  
-  // Use the reset hook
-  const { resetFilters } = useReset({
-    setFilters,
-    setCurrentPage,
-    setOpenFilterColumn,
-    setRowsPerPage,
-    initialRowsPerPage: 10
-  });
-
-  // Close filter when clicking outside
   const wrapperRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // Define the User type
+  type User = {
+    id: string | number;
+    fullName: string;
+    organization: string;
+    email: string;
+    phone: string;
+    dateJoined: string;
+    status: string;
+    loanRepayment?: number | string;
+    savings?: number | string;
+    [key: string]: string | number | undefined; // For dynamic filter access
+  };
+
+  // Fetch all users from React Query
+  const { data: usersData = [], isLoading, isError, error } = useAllUsers();
+
+  // Show error toast if fetching users fails
+  useEffect(() => {
+    if (isError) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to fetch users. Please try again."
+      );
+    }
+  }, [isError, error]);
+
+  // Apply filters on top of fetched users
+  const filteredUsers = useMemo(() => {
+    let filtered: User[] = [...usersData];
+
+    // Loop through appliedFilters and filter users
+    for (const key in appliedFilters) {
+      const value = appliedFilters[key];
+      if (value) {
+        filtered = filtered.filter((u: User) =>
+          String(u[key]).toLowerCase().includes(String(value).toLowerCase())
+        );
+      }
+    }
+
+    return filtered;
+  }, [usersData, appliedFilters]);
+
+  // Pagination
+  const paginatedUsers = useMemo(() => {
+    const start = (currentPage - 1) * rowsPerPage;
+    return filteredUsers.slice(start, start + rowsPerPage);
+  }, [filteredUsers, currentPage, rowsPerPage]);
+
+  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage) || 1;
+  const totalUsers = filteredUsers.length;
+  const noOfActiveUsers = filteredUsers.filter(
+    (u) => u.status === "Active"
+  ).length;
+  const usersWithLoans = filteredUsers.filter(
+    (u) => Number(u.loanRepayment) > 0
+  ).length;
+  const usersWithSavings = filteredUsers.filter(
+    (u) => Number(u.savings) > 0
+  ).length;
+
+  // Close filter dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -53,29 +98,36 @@ export default function UsersPage() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [openFilterColumn]);
 
-  const paginatedUsers = useMemo(() => {
-    const start = (currentPage - 1) * rowsPerPage;
-    return users.slice(start, start + rowsPerPage);
-  }, [users, currentPage, rowsPerPage]);
-
-  const totalPages = Math.ceil(users.length / rowsPerPage) || 1;
-  const totalUsers = users.length;
-  const noOfActiveUsers = users.filter((u) => u.status === "Active").length;
-  const usersWithLoans = users.filter((u) => Number(u.loanRepayment) > 0).length;
-  const usersWithSavings = users.filter((u) => Number(u.savings) > 0).length;
-
   if (isLoading) return <FullSpinner />;
 
-  const tableRows = ["ORGANIZATION", "USERNAME", "EMAIL", "PHONE NUMBER", "DATE JOINED", "STATUS"];
+  const tableRows = [
+    "organization",
+    "username",
+    "email",
+    "phone",
+    "dateJoined",
+    "status",
+  ];
 
   return (
     <div className="users-page">
-      {/* Summary Cards */}
       <div className="user-cards">
-        <UserCard icon="👥" label="USERS" value={totalUsers.toLocaleString()} />
-        <UserCard icon="✅" label="ACTIVE USERS" value={noOfActiveUsers.toLocaleString()} />
-        <UserCard icon="💰" label="USERS WITH LOANS" value={usersWithLoans.toLocaleString()} />
-        <UserCard icon="🏦" label="USERS WITH SAVINGS" value={usersWithSavings.toLocaleString()} />
+        <UserCard icon="/icon-total-users.png" label="USERS" value={totalUsers.toLocaleString()} />
+        <UserCard
+          icon="/icon-active-users.png"
+          label="ACTIVE USERS"
+          value={noOfActiveUsers.toLocaleString()}
+        />
+        <UserCard
+          icon="/loan-users.png"
+          label="USERS WITH LOANS"
+          value={usersWithLoans.toLocaleString()}
+        />
+        <UserCard
+          icon="/savings-users.png"
+          label="USERS WITH SAVINGS"
+          value={usersWithSavings.toLocaleString()}
+        />
       </div>
 
       {/* Table */}
@@ -83,12 +135,20 @@ export default function UsersPage() {
         <thead>
           <tr>
             {tableRows.map((row) => (
-              <th key={row} style={{ position: "relative" }} ref={(el) => (wrapperRefs.current[row] = el)}>
+              <th
+                key={row}
+                style={{ position: "relative" }}
+                ref={(el) => {
+                  wrapperRefs.current[row] = el;
+                }}
+              >
                 <span
                   style={{ cursor: "pointer" }}
-                  onClick={() => setOpenFilterColumn(openFilterColumn === row ? null : row)}
+                  onClick={() =>
+                    setOpenFilterColumn(openFilterColumn === row ? null : row)
+                  }
                 >
-                  {row} <FilterButton />
+                  {row.toUpperCase()} <FilterButton />
                 </span>
 
                 {/* Filter dropdown */}
@@ -96,11 +156,15 @@ export default function UsersPage() {
                   <div className="user-filter open">
                     <UserFilter
                       onFilter={(filters) => {
-                        setFilters(filters);
+                        setAppliedFilters((prev) => ({ ...prev, ...filters }));
                         setCurrentPage(1);
                         setOpenFilterColumn(null);
                       }}
-                      onReset={resetFilters}
+                      onReset={() => {
+                        setAppliedFilters({});
+                        setCurrentPage(1);
+                        setOpenFilterColumn(null);
+                      }}
                     />
                   </div>
                 )}
@@ -125,7 +189,7 @@ export default function UsersPage() {
                 email={u.email}
                 phone={u.phone}
                 date={u.dateJoined}
-                status={["Active", "Inactive", "Pending", "Blacklisted"].includes(u.status) ? (u.status as "Active" | "Inactive" | "Pending" | "Blacklisted") : "Inactive"}
+                status={normalizeStatus(u.status)}
               />
             ))
           )}

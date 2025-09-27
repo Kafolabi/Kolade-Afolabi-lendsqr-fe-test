@@ -32,3 +32,20 @@ export const getPageNumbers = (currentPage: number, totalPages: number) => {
 
   return pages;
 };
+
+export function normalizeStatus(raw: string): "Active" | "Inactive" | "Pending" | "Blacklisted" {
+  const val = raw.trim().toLowerCase();
+  switch (val) {
+    case "active":
+      return "Active";
+    case "inactive":
+      return "Inactive";
+    case "pending":
+      return "Pending";
+    case "blacklist":
+    case "blacklisted":
+      return "Blacklisted";
+    default:
+      return "Inactive";
+  }
+}

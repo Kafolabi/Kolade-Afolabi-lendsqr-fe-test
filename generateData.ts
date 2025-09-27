@@ -74,8 +74,8 @@ function generateUsers(count: number): User[] {
     monthlyIncome: `${faker.number.int({
       min: 100000,
       max: 300000,
-    })}-${faker.number.int({ min: 300001, max: 500000 })}`,
-    loanRepayment: faker.string.numeric(5),
+    })}`,
+    // loanRepayment: faker.string.numeric(5),
     socials: {
       twitter: `@${faker.internet.username().toLowerCase()}`,
       facebook: faker.person.fullName(),

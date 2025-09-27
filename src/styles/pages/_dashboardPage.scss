@@ -8,13 +8,11 @@
   &__body {
     display: flex;
     flex: 1;
-    // position: relative; // ensures stacking works
   }
   .sidebar {
     width: 16rem;
     flex-shrink: 0;
     background: #fff;
-    // position: relative;
     z-index: 2;
     box-shadow: var(--shadow-lg);
   }

@@ -1,5 +1,4 @@
 .users-page {
-  // padding: 2rem;
 
   .user-cards {
     display: grid;
@@ -28,34 +27,3 @@
     }
   }
 }
-
-// .users-page {
-//   .users-table {
-//     width: 100%;
-//     border-collapse: collapse;
-//     background: #fff;
-//     border-radius: var(--radius-md);
-//     overflow: hidden; // keeps rounded corners clean
-
-//     th,
-//     td {
-//       padding: var(--space-4) var(--space-6);
-//       text-align: left;
-//     }
-
-//     thead th {
-//       font-weight: var(--font-weight-medium);
-//       font-size: var(--font-size-sm);
-//       color: var(--color-neutral-600);
-//       text-transform: uppercase;
-//     }
-//   }
-
-//   // ✅ add spacing around the table so it doesn’t hug container edges
-//   .users-table-wrapper {
-//     margin-top: var(--space-8);
-//     padding: var(--space-6);
-//     background: var(--color-neutral-50);
-//     border-radius: var(--radius-md);
-//   }
-// }

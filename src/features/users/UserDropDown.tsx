@@ -13,6 +13,7 @@ export default function UserDropdown({
   onBlacklist = () => {},
   onActivate = () => {},
 }: Props) {
+  
   return (
     <div className={`user-dropdown ${open ? "open" : ""}`} role="menu">
       <button type="button" onClick={onView}>

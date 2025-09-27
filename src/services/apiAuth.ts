@@ -16,6 +16,8 @@ export const login = async (email: string, password: string) => {
   if (!user) throw new Error("Invalid credentials");
 
   const { password: _ignore, ...userWithoutPassword } = user;
+  console.log("User logged in:", _ignore, userWithoutPassword);
+
   localStorage.setItem("authUser", JSON.stringify(userWithoutPassword));
   localStorage.setItem("authToken", "fake-token"); // simulate token
   return userWithoutPassword;
