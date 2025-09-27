@@ -1,66 +1,149 @@
 .user-filter {
   position: absolute;
   top: 100%; // below the header
-  left: 0; // align left with the header
+  left: 0;
   min-width: 260px;
   padding: 1rem;
   background: #fff;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
-  z-index: 1000;
+  z-index: 10000;
+
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   font-family: var(--font-family-sans);
-  gap: 1rem;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
+
+  transform: translateY(-10px); // small upward offset
+  transition: opacity 0.2s ease, transform 0.2s ease;
 
   &.open {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0);
   }
 
-  input {
-    padding: var(--space-3);
-    border: 1px solid var(--color-neutral-300);
-    border-radius: var(--radius-md);
-
-    &::placeholder {
-      font-family: var(--font-family-sans);
-    }
-  }
+  input,
   select {
-    padding: var(--space-3);
-    border: 1px solid var(--color-neutral-300);
-    border-radius: var(--radius-sm);
+    padding-inline: 0.7rem;
+    padding-block: 0.8rem;
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-md);
+    width: 100%; // ensure they take full dropdown width
+    margin-bottom: var(--space-3);
 
+    &:active {
+      border: none;
+      border-color: var(--color-primary);
+      outline: none;
+    }
     &::placeholder {
-      font-family: var(--font-family-sans);
+      font-family: var(--font-family-sans) !important;
+      letter-spacing: 0.04rem;
     }
   }
 
   .actions {
     display: flex;
-    gap: 1rem;
     justify-content: flex-end;
+    gap: 1rem;
 
     .reset {
       background: var(--color-neutral-200);
       padding: 0.5rem 1rem;
-      border: none;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       cursor: pointer;
-      font-family: var(--font-family-sans);
     }
 
     .filter {
       background: var(--color-primary);
       color: #fff;
       padding: 0.5rem 1rem;
-      border: none;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       cursor: pointer;
+    }
+  }
+}
+
+
+.user-filter {
+  position: absolute;
+  top: 100%; // below the header
+  left: 0;
+  min-width: 260px;
+  padding: 1rem;
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  z-index: 10000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+
+  transform: translateY(-10px); // small upward offset
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  input,
+  select {
+    padding-inline: 0.7rem;
+    padding-block: 0.8rem;
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-md);
+    width: 100%;
+    margin-bottom: var(--space-3);
+    outline: none; // remove default focus outline
+
+    &:focus,
+    &:active {
+      border: 1px solid var(--color-neutral-200); // keep same as normal
+      outline: none; // remove focus outline
+      box-shadow: none; // remove any focus shadow
+    }
+
+    &::placeholder {
+      font-family: var(--font-family-sans) !important;
+      letter-spacing: 0.04rem;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    .reset,
+    .filter {
+      border: none; // remove default button border
+      outline: none; // remove focus outline
+      box-shadow: none;
       font-family: var(--font-family-sans);
+    }
+
+    .reset {
+      background: var(--color-neutral-200);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+
+    .filter {
+      background: var(--color-primary);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
     }
   }
 }

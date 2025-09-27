@@ -1,4 +1,3 @@
-
 import "../../styles/features/_userfilter.scss";
 
 type UserFilters = {
@@ -73,3 +72,4 @@ export default function UserFilter({ onFilter, onReset }: Props) {
     </form>
   );
 }
+

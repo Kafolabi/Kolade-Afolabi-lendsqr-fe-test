@@ -10,11 +10,3 @@ export const useAllUsers = () => {
   });
 };
 
-// Fetch single user by ID (fallback)
-export const useUser = (id: string) => {
-  return useQuery({
-    queryKey: ["user", id],
-    queryFn: () => getUserById(id),
-    enabled: !!id,
-  });
-};

@@ -1,12 +1,14 @@
 import axiosInstance from "./axiosInstance";
+import { USER_KEY_PREFIX } from "../utils/constants";
 
 export const getAllUsers = async () => {
   const response = await axiosInstance.get("/users");
   return response.data; // array of 500 users
 };
 
-export const getUserById = async (id: string) => {
-  const response = await axiosInstance.get(`/users/${id}`);
+
+export const getUserById = async (id: string): Promise<User> => {
+  const response = await axiosInstance.get<User>(`/users/${id}`);
   return response.data;
 };
 

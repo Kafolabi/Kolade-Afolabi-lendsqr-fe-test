@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/features/_userrow.scss";
 import UserDropdown from "./UserDropDown";
 import { formatDate } from "../../utils/formatters";
 
 type UserRowProps = {
-  id?: string;
+  id: string; // make sure this is required
   organization: string;
   username: string;
   email: string;
@@ -24,6 +25,7 @@ export default function UserRow({
 }: UserRowProps) {
   const [open, setOpen] = useState(false);
   const actionCellRef = useRef<HTMLTableCellElement | null>(null);
+  const navigate = useNavigate();
 
   // toggle
   function handleDropdownToggle() {
@@ -69,8 +71,13 @@ export default function UserRow({
           ⋮
         </button>
 
-        {/* Dropdown is always in DOM — visibility controlled by class */}
-        <UserDropdown open={open} />
+        {/* Dropdown: handlers passed here */}
+        <UserDropdown
+          open={open}
+          onView={() => navigate(`/dashboard/users/${id}`)}
+          onBlacklist={() => console.log("Blacklist user", id)}
+          onActivate={() => console.log("Activate user", id)}
+        />
       </td>
     </tr>
   );

@@ -1,9 +1,8 @@
 // import { Outlet } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Sidebar from "../components/layout/Sidebar";
-import UserPage from "./UserPage";
 import "../styles/pages/_dashboardPage.scss";
-import { useAuth } from "../hooks/useAuth";
+import { Outlet } from "react-router-dom";
 
 function DashboardPage() {
     // const { isAuthenticated } = useAuth();
@@ -17,9 +16,7 @@ function DashboardPage() {
       <div className="layout__body">
         <Sidebar />
         <main className="layout__content">
-        <UserPage />
-
-        {/* <Outlet /> */}
+        <Outlet />
         </main>
       </div>
     </div>
