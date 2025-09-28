@@ -39,7 +39,7 @@ describe("useUserActions", () => {
 
         await act(async () => {
             await new Promise<void>(resolve => {
-                result.current.activateUser(user.id, { onSuccess: (_data: apiUsers.User) => resolve() });
+                result.current.activateUser(user.id, { onSuccess: () => resolve() });
             });
         });
 
@@ -54,7 +54,7 @@ describe("useUserActions", () => {
 
         await act(async () => {
             await new Promise<void>(resolve => {
-                result.current.blacklistUser(user.id, { onSuccess: (_data: apiUsers.User) => resolve() });
+                result.current.blacklistUser(user.id, { onSuccess: () => resolve() });
             });
         });
 

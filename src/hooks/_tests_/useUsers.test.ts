@@ -1,7 +1,8 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useAllUsers } from "../useUsers";
 import * as apiUsers from "../../services/apiUsers";
+jest.mock("../../services/apiUsers");
+import { useAllUsers } from "../useUsers";
 import { createElement } from "react";
 
 // Helper to wrap hook with QueryClientProvider

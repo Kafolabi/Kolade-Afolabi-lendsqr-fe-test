@@ -36,7 +36,7 @@ describe('useDebounce', () => {
 
     it('should not update the value if unmounted before delay', () => {
         let value = 'first';
-        const { result, rerender, unmount } = renderHook(({ val }) => useDebounce(val, 200), {
+        const { rerender, unmount } = renderHook(({ val }) => useDebounce(val, 200), {
             initialProps: { val: value },
         });
 
@@ -83,7 +83,7 @@ describe('useDebounce', () => {
 
     it('should handle null and undefined values', () => {
         const { result, rerender } = renderHook(({ val }: { val: string | null | undefined }) => useDebounce(val, 100), {
-            initialProps: { val: null },
+            initialProps: { val: null as string | null | undefined },
         });
 
         expect(result.current).toBeNull();
