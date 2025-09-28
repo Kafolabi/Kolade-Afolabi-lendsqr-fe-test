@@ -73,22 +73,3 @@ export const blacklistUser = async (id: string | number): Promise<User> => {
   });
   return response.data;
 };
-
-
-
-// export const activateUser = async (id: string | number): Promise<User> => {
-//   const response = await axiosInstance.patch<User>(`/users/${id}`, {
-//     status: "active",
-//   });
-//   return response.data;
-// };
-
-// /**
-//  * Blacklist a user (set status to "blacklist")
-//  */
-// export const blacklistUser = async (id: string | number): Promise<User> => {
-//   const response = await axiosInstance.patch<User>(`/users/${id}`, {
-//     status: "blacklist",
-//   });
-//   return response.data;
-// };

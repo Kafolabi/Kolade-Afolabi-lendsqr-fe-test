@@ -57,9 +57,9 @@ export default function UserFilter({ onFilter, onReset }: Props) {
       <div className="actions">
         <button
           type="button"
-          onClick={() => {
+          onClick={(e) => {
             onReset();
-            (e.currentTarget as HTMLFormElement).reset();
+            (e.currentTarget.form as HTMLFormElement).reset();
           }}
           className="reset"
         >
